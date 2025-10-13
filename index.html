@@ -1,13 +1,64 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="./vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>vue-standalone</title>
-    <script type="module" crossorigin src="./assets/index-KDCmUPxm.js"></script>
-  </head>
-  <body>
-    <div id="app"></div>
-  </body>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Mini Vue App</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link rel="stylesheet" href="./style.css">
+  <script src="https://unpkg.com/vue@3.4.0/dist/vue.global.prod.js"></script>
+</head>
+<body>
+
+  <div id="app" class="app-container">
+    <!-- Top bar -->
+    <header class="app-header">
+      <h2>{{ appName }}</h2>
+    </header>
+
+    <!-- Welcome Card -->
+    <div class="card">
+      <h3>👋 Hello, {{ userName }}</h3>
+      <p>This mini app runs <b>100% offline — no npm, no server.</b></p>
+    </div>
+
+    <!-- List Title -->
+    <h3 class="section-title">🔥 Recent Items</h3>
+
+    <!-- List View -->
+    <div class="list-view">
+      <div 
+        class="list-item" 
+        v-for="(item, index) in items" 
+        :key="index"
+        :class="{ active: activeIndex === index }"
+        @click="activeIndex = index"
+      >
+        <span>{{ item.icon }} {{ item.title }}</span>
+        <small>{{ item.subtitle }}</small>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const { createApp } = Vue;
+    createApp({
+      data() {
+        return {
+          appName: 'My Vue App Without npm',
+          userName: 'Guest User',
+          activeIndex: null,
+          items: [
+            { icon: '📦', title: 'Order #12931', subtitle: '2 hours ago' },
+            { icon: '💬', title: 'New Message', subtitle: '5 min ago' },
+            { icon: '🔥', title: 'Trending Topic', subtitle: 'Just now' },
+            { icon: '🎁', title: 'Reward Unlocked', subtitle: 'Yesterday' },
+            { icon: '🚀', title: 'Feature Update', subtitle: '2 days ago' },
+          ]
+        }
+      }
+    }).mount('#app');
+  </script>
+
+</body>
 </html>
